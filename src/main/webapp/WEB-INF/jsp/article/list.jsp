@@ -5,13 +5,10 @@
 <c:set var="pageTitle" value="게시물 리스트" />
 <%@ include file="../part/head.jspf"%>
 	
-<div class="article-list-box con table-box">
+<div class="article-detail-box con table-box">
 	<table>
 		<colgroup>
-			<col width="10" />
-			<col width="200" />
-			<col />
-			<col width="150" />
+			<col width="100" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -24,7 +21,7 @@
 		<tbody>
 			<c:forEach items="${articles }" var="article">
 				<tr>
-					<td>${article.id }</td>
+					
 					<td>${article.regDate }</td>
 					<td><a href="./detail?id=${article.id}">${article.title }</a></td>
 					<td><a href="./modify?id=${article.id }">수정하기</a>
