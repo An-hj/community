@@ -1,11 +1,14 @@
 package com.example.cuni.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.cuni.dto.Article;
 import com.example.cuni.service.ArticleService;
@@ -31,5 +34,26 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		
 		return "article/detail";
+	}
+	
+	@RequestMapping("/article/write")
+	public String showWrite() {
+		
+		return "article/write";
+	}
+	
+	@RequestMapping("/article/doWrite")
+	@ResponseBody
+	public String doWrite(@RequestParam Map<String, Object> param) {
+		Map<String, Object> rs = articleService.write(param);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<script>");
+		sb.append("alert('" + rs.get("msg") + "');");
+		sb.append("location.replace('/article/list');");
+		sb.append("</script>");
+		
+		return sb.toString();
 	}
 }

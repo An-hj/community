@@ -1,6 +1,9 @@
 package com.example.cuni.service;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,20 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Article getArticle(int id) {
 		return articleDao.getArticle(id);
+	}
+
+	@Override
+	public Map<String, Object> write(Map<String, Object> param) {
+		articleDao.write(param);
+		
+		int id = ((BigInteger) param.get("id")).intValue();
+		
+		Map<String, Object> rs = new HashMap<String, Object>();
+		rs.put("resultCode", "S-1");
+		rs.put("id", id);
+		rs.put("msg", id + "번 글이 추가되었습니다.");
+		
+		return rs;
 	}
 
 }

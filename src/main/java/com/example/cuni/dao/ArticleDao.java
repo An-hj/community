@@ -1,6 +1,7 @@
 package com.example.cuni.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,5 +14,7 @@ public interface ArticleDao {
 	List<Article> getArticles();
 
 	Article getArticle(@Param("id") int id);
+
+	void write(Map<String, Object> param);
 
 }
