@@ -8,7 +8,10 @@
 <div class="article-detail-box con table-box">
 	<table>
 		<colgroup>
-			<col width="100" />
+			<col width="10" />
+			<col width="200" />
+			<col />
+			<col width="150" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -21,7 +24,7 @@
 		<tbody>
 			<c:forEach items="${articles }" var="article">
 				<tr>
-					
+					<td>${article.id }</td>
 					<td>${article.regDate }</td>
 					<td><a href="./detail?id=${article.id}">${article.title }</a></td>
 					<td><a href="./modify?id=${article.id }">수정하기</a>
