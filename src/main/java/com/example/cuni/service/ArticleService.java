@@ -13,4 +13,6 @@ public interface ArticleService {
 
 	Map<String, Object> write(Map<String, Object> param);
 
+	Map<String, Object> modify(Map<String, Object> param);
+
 }

@@ -40,4 +40,18 @@ public class ArticleServiceImpl implements ArticleService {
 		return rs;
 	}
 
+	@Override
+	public Map<String, Object> modify(Map<String, Object> param) {
+		articleDao.modify(param);
+		
+		int id = Integer.parseInt((String)param.get("id"));
+		
+		Map<String, Object> rs = new HashMap<String, Object>();
+		rs.put("resultCode", "S-1");
+		rs.put("id", id);
+		rs.put("msg", id + "번 글이 수정되었습니다.");
+		
+		return rs;
+	}
+
 }

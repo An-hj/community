@@ -20,4 +20,11 @@
 		title = #{title},
 		body = #{body}
 	</insert>
+	
+	<update id="modify">
+		UPDATE article
+		SET title = #{title},
+		body = #{body}
+		WHERE id = #{id}
+	</update>
 </mapper>

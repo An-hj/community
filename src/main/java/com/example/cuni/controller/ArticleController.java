@@ -56,4 +56,27 @@ public class ArticleController {
 		
 		return sb.toString();
 	}
+	
+	@RequestMapping("/article/modify")
+	public String showModify(Model model, int id) {
+		Article article = articleService.getArticle(id);
+		model.addAttribute("article", article);
+		
+		return "article/modify";
+	}
+	
+	@RequestMapping("/article/doModify")
+	@ResponseBody
+	public String doModify(@RequestParam Map<String, Object> param) {
+		Map<String, Object> rs = articleService.modify(param);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<script>");
+		sb.append("alert('" + rs.get("msg") + "');");
+		sb.append("location.replace('/article/list');");
+		sb.append("</script>");
+		
+		return sb.toString();
+	}
 }
