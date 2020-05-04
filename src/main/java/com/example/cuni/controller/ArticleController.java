@@ -81,17 +81,12 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/article/doDelete")
-	@ResponseBody
-	public String doDelete(int id) {
+	public String doDelete(Model model, int id) {
 		Map<String, Object> rs = articleService.delete(id);
 
-		StringBuilder sb = new StringBuilder();
+		model.addAttribute("jsLocationReplaceUrl", "/article/list");
+		model.addAttribute("jsAlert", rs.get("msg"));
 
-		sb.append("<script>");
-		sb.append("alert('" + rs.get("msg") + "');");
-		sb.append("location.replace('/article/list');");
-		sb.append("</script>");
-
-		return sb.toString();
+		return "redirect";
 	}
 }

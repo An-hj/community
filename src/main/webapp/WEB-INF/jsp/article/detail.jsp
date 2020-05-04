@@ -19,6 +19,13 @@
 				<th>내용</th>
 				<td>${article.bodyForPrint }</td>
 			</tr>
+			<tr>
+				<th>비고</th>
+				<td><a href="./modify?id=${article.id}">수정하기</a> <a
+						href="./doDelete?id=${article.id}"
+						onclick="if ( confirm('정말로 삭제하시겠습니까?') == false ) return false;">삭제</a>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
