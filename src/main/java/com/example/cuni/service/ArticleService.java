@@ -15,4 +15,6 @@ public interface ArticleService {
 
 	Map<String, Object> modify(Map<String, Object> param);
 
+	Map<String, Object> delete(int id);
+
 }

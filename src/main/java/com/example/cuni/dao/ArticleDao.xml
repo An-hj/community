@@ -27,4 +27,9 @@
 		body = #{body}
 		WHERE id = #{id}
 	</update>
+	
+	<delete id="remove">
+		DELETE FROM article
+		WHERE id = #{id}
+	</delete>
 </mapper>

@@ -54,4 +54,16 @@ public class ArticleServiceImpl implements ArticleService {
 		return rs;
 	}
 
+	@Override
+	public Map<String, Object> delete(int id) {
+		articleDao.remove(id);
+		
+		Map<String, Object> rs = new HashMap<String, Object>();
+		rs.put("resultCode", "S-1");
+		rs.put("id", id);
+		rs.put("msg", id + "번 글이 삭제되었습니다.");
+		
+		return rs;
+	}
+
 }

@@ -79,4 +79,19 @@ public class ArticleController {
 		
 		return sb.toString();
 	}
+	
+	@RequestMapping("/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		Map<String, Object> rs = articleService.delete(id);
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<script>");
+		sb.append("alert('" + rs.get("msg") + "');");
+		sb.append("location.replace('/article/list');");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
 }
