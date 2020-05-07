@@ -1,42 +1,41 @@
 package com.example.cuni.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.cuni.service.MemberService;
 
 @Controller
 public class MemberController {
-	@RequestMapping("/member/doLogin")
-	@ResponseBody
-	public String doLogin(HttpSession session, String loginId, String loginPw) {
-		if (loginId.equals("user1") && loginPw.equals("1234")) {
-			session.setAttribute("isLogined", "OK");
-			
-			return "로그인되었습니다.";
+	@Autowired
+	private MemberService memberService;
+
+	@RequestMapping("member/join")
+	String showJoin() {
+		return "member/join";
+	}
+	
+	@RequestMapping("member/doJoin")
+	public String doJoin(Model model, @RequestParam Map<String, Object> param) {
+		Map<String, Object> rs = memberService.join(param);
+		
+		String resultCode = (String) rs.get("resultCode");
+		
+		if (resultCode.startsWith("S-")) {
+			String redirectUrl = "/member/login";
+			model.addAttribute("jsAlertMsg", rs.get("msg"));
+			model.addAttribute("jsLocationReplaceUrl", redirectUrl);
 		} else {
-			return "올바르지 않은 계정 정보";
-		}
-	}
-	
-	@RequestMapping("/member/checkLogined")
-	@ResponseBody
-	public String checkLogined(HttpSession session) {
-		String isLogined = (String) session.getAttribute("isLogined");
-		
-		if (isLogined == null) {
-			return "미로그인";
-		} else if (isLogined.equals("OK")) {
-			return "로그인";
+			model.addAttribute("jsAlertMsg", rs.get("msg"));
+			model.addAttribute("jsLocationReplaceUrl", true);
 		}
 		
-		return "";
+		return "redirect";
 	}
 	
-	@RequestMapping("/member/test1")
-	@ResponseBody
-	public String test1() {
-		return "123";
-	}
 }
