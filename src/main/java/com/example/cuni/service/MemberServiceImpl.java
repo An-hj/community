@@ -38,4 +38,33 @@ public class MemberServiceImpl implements MemberService {
 		return rs;
 	}
 
+	@Override
+	public Map<String, Object> checkLoginAvailable(Map<String, Object> param) {
+		Map<String, Object> rs = new HashMap<String, Object>();
+		
+		String loginId = (String) param.get("loginId");
+		String loginPw = (String) param.get("loginPw");
+		Member member = memberDao.getMemberByLoginId(loginId);
+		
+		if (member == null) {
+			rs.put("resultCode", "F-1");
+			rs.put("msg", "해당 회원이 존재하지 않습니다.");
+		} else if (member.getLoginPw().equals(loginPw) == false) {
+			rs.put("resultCode", "F-2");
+			rs.put("msg", "비밀번호가 일치하지 않습니다.");
+		} else {
+			rs.put("resultCode", "S-1");
+			rs.put("msg", "로그인 가능합니다.");
+			rs.put("id", member.getId());
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public Member getMemberById(int id) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberById(id);
+	}
+
 }

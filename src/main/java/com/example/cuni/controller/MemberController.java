@@ -2,6 +2,8 @@ package com.example.cuni.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,14 @@ public class MemberController {
 	String showJoin() {
 		return "member/join";
 	}
+
+	@RequestMapping("member/login")
+	String showLogin() {
+		return "member/login";
+	}
 	
 	@RequestMapping("member/doJoin")
-	public String doJoin(Model model, @RequestParam Map<String, Object> param) {
+	String doJoin(Model model, @RequestParam Map<String, Object> param) {
 		Map<String, Object> rs = memberService.join(param);
 		
 		String resultCode = (String) rs.get("resultCode");
@@ -38,4 +45,39 @@ public class MemberController {
 		return "redirect";
 	}
 	
+	@RequestMapping("member/doLogin")
+	String doLogin(HttpSession session, Model model, @RequestParam Map<String, Object> param) {
+		Map<String, Object> rs = memberService.checkLoginAvailable(param);
+		
+		String resultCode = (String) rs.get("resultCode");
+		String msg = (String) rs.get("msg");
+		
+		if (resultCode.startsWith("S-")) {
+			int loginedMemberId = (int) rs.get("id");
+			session.setAttribute("loginedMemberId", loginedMemberId);
+			msg = "로그인 되었습니다.";
+			
+			String redirectUrl = "/article/list";
+			
+			model.addAttribute("jsAlertMsg", rs.get("msg"));
+			model.addAttribute("jsLocationReplaceUrl", redirectUrl);
+		} else {
+			model.addAttribute("jsAlertMsg", rs.get("msg"));
+			model.addAttribute("jsLocationReplaceUrl", true);
+		}
+		
+		return "redirect";
+	}
+	
+	@RequestMapping("member/doLogout")
+	String doLogout(HttpSession session, Model model) {
+		session.removeAttribute("loginedMemberId");
+		
+		String redirectUrl = "/article/list";
+		
+		model.addAttribute("jsAlertMsg", "로그아웃 되었습니다.");
+		model.addAttribute("jsLocationReplaceUrl", redirectUrl);
+		
+		return "redirect";
+	}
 }
