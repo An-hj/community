@@ -21,4 +21,6 @@ public interface ArticleDao {
 
 	void remove(int id);
 
+	List<Article> getArticlesByBoardCode(@Param("boardCode")String boardCode);
+
 }

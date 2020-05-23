@@ -17,4 +17,6 @@ public interface ArticleService {
 
 	Map<String, Object> delete(int id);
 
+	List<Article> getArticles(String boardCode);
+
 }
