@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${siteName }-${pageTitle }</title>
+<title>커뮤니티 사이트-${pageName }</title>
 <link rel="stylesheet" href="/css/common.css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,14 +15,15 @@
 
 </head>
 <body>
-	<h1 class="title-box con">${pageTitle }</h1>
+	<h1 class="con">${pageName }</h1>
 	
 	<c:if test="${isLogined }">
 		<div class="con welcome-msg-box">${loginedMember.name }님 환영합니다.</div>
 	</c:if>
 
 	<div class="menu-box con">
-		<a href="/article/list">글 리스트</a> 
+		<a href="/article/list?boardCode=notice">공지사항</a>
+		<a href="/article/list?boardCode=free">자유게시판</a> 
 		<c:if test="${isLogined }">
 			<a href="/article/write">글쓰기</a>
 		</c:if>

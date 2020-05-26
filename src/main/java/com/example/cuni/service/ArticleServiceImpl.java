@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.cuni.dao.ArticleDao;
 import com.example.cuni.dto.Article;
+import com.example.cuni.dto.Board;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -69,6 +70,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Article> getArticles(String boardCode) {
 		return articleDao.getArticlesByBoardCode(boardCode);
+	}
+
+	@Override
+	public Board getBoard(String boardCode) {
+		return articleDao.getBoardByBoardCode(boardCode);
 	}
 
 }

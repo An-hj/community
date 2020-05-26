@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.cuni.dto.Article;
+import com.example.cuni.dto.Board;
 import com.example.cuni.service.ArticleService;
 
 @Controller
@@ -20,9 +21,11 @@ public class ArticleController {
 
 	@RequestMapping("/article/list")
 	public String showList(Model model, String boardCode) {
+		Board board = articleService.getBoard(boardCode);
 		List<Article> articles = articleService.getArticles(boardCode);
 		
 		model.addAttribute("articles", articles);
+		model.addAttribute("board", board);
 		
 		return "article/list";
 	}

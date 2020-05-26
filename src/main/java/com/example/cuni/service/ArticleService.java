@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.cuni.dto.Article;
+import com.example.cuni.dto.Board;
 
 public interface ArticleService {
 
@@ -18,5 +19,7 @@ public interface ArticleService {
 	Map<String, Object> delete(int id);
 
 	List<Article> getArticles(String boardCode);
+
+	Board getBoard(String boardCode);
 
 }

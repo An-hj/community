@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.cuni.dto.Article;
+import com.example.cuni.dto.Board;
 
 @Mapper
 public interface ArticleDao {
@@ -21,6 +22,8 @@ public interface ArticleDao {
 
 	void remove(int id);
 
-	List<Article> getArticlesByBoardCode(@Param("boardCode")String boardCode);
+	List<Article> getArticlesByBoardCode(@Param("boardCode") String boardCode);
+
+	Board getBoardByBoardCode(@Param("boardCode") String boardCode);
 
 }
