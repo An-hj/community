@@ -1,6 +1,5 @@
 package com.example.cuni.service;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.cuni.dao.ArticleDao;
 import com.example.cuni.dto.Article;
 import com.example.cuni.dto.Board;
+import com.example.cuni.util.CUtil;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -31,12 +31,11 @@ public class ArticleServiceImpl implements ArticleService {
 	public Map<String, Object> write(Map<String, Object> param) {
 		articleDao.write(param);
 		
-		int id = ((BigInteger) param.get("id")).intValue();
+		int id = CUtil.getAsInt(param.get("id"));
 		
-		Map<String, Object> rs = new HashMap<String, Object>();
+		Map<String, Object> rs = new HashMap<>();
 		rs.put("resultCode", "S-1");
-		rs.put("id", id);
-		rs.put("msg", id + "번 글이 추가되었습니다.");
+		rs.put("msg", String.format("%d번 게시물이 생성되었습니다.", id));
 		
 		return rs;
 	}
@@ -75,6 +74,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Board getBoard(String boardCode) {
 		return articleDao.getBoardByBoardCode(boardCode);
+	}
+
+	@Override
+	public Board getBoard(int boardId) {
+		return articleDao.getBoard(boardId);
 	}
 
 }

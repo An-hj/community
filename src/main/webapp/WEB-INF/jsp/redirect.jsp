@@ -8,7 +8,7 @@
 			alert(jsAlertMsg);
 	}
 
-	var jsLocationReplaceUrl = '${jsLocationReplaceUrl}';
+	var jsLocationReplaceUrl = '${jsLocationReplace}'.trim();
 
 	if (jsLocationReplaceUrl) {
 		location.replace(jsLocationReplaceUrl);

@@ -2,37 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="게시물 쓰기" />
+<c:set var="pageName" value="${board.name }게시물 작성" />
 <%@ include file="../part/head.jspf"%>
 	
-<script>
-	function submitWriteForm(form) {
-		form.title.value = form.title.value.trim();
-
-		if (form.title.value.lengt h== 0) {
-			alert('제목을 입력해주세요.');
-			form.title.focus();
-
-			return false;
-		}
-		
-		form.body.value = form.body.value.trim();
-
-		if (form.body.value.lengt h== 0) {
-			alert('내용을 입력해주세요.');
-			form.body.focus();
-
-			return false;
-		}		
-
-		form.submit();
-	} 
-</script>
-	
-<div class="article-write-box con table-box">
-	<form action="/article/doWrite" method="POST"
-		onsubmit="submitWriteForm(this); return false;"
-		class="table-box form form-type-1">
+<form action="/article/doWrite" method="POST">	
+	<input type="hidden" name="boardId" value="${board.id }" />
+	<div class="con table-box">	
 		<table>
 			<colgroup>
 				<col width="100" />
@@ -54,6 +29,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</form>
-</div>
+	</div>
+</form>
+
 <%@ include file="../part/foot.jspf"%>

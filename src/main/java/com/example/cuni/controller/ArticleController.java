@@ -38,27 +38,7 @@ public class ArticleController {
 		
 		return "article/detail";
 	}
-	
-	@RequestMapping("/article/write")
-	public String showWrite() {
-		
-		return "article/write";
-	}
-	
-	@RequestMapping("/article/doWrite")
-	@ResponseBody
-	public String doWrite(@RequestParam Map<String, Object> param) {
-		Map<String, Object> rs = articleService.write(param);
-		
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<script>");
-		sb.append("alert('" + rs.get("msg") + "');");
-		sb.append("location.replace('/article/list');");
-		sb.append("</script>");
-		
-		return sb.toString();
-	}
+
 	
 	@RequestMapping("/article/modify")
 	public String showModify(Model model, int id) {
@@ -89,6 +69,32 @@ public class ArticleController {
 
 		model.addAttribute("jsLocationReplaceUrl", "/article/list");
 		model.addAttribute("jsAlert", rs.get("msg"));
+
+		return "redirect";
+	}
+	
+	@RequestMapping("/article/write")
+	public String showWrite(Model model, String boardCode) {
+		Board board = articleService.getBoard(boardCode);
+		
+		model.addAttribute("board", board);
+		
+		return "article/write";
+	}
+	
+	@RequestMapping("/article/doWrite")
+	public String doWrite(Model model, @RequestParam Map<String, Object> param) {
+		Map<String, Object> rs = articleService.write(param);
+		
+		int boardId = Integer.parseInt((String)param.get("boardId"));
+		
+		Board board = articleService.getBoard(boardId);
+		
+		String msg = (String) rs.get("msg");
+		String redirectUrl = "/article/list?boardCode=" + board.getCode();
+
+		model.addAttribute("alertMsg", msg);
+		model.addAttribute("locationReplace", redirectUrl);
 
 		return "redirect";
 	}

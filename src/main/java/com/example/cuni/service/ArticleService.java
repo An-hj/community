@@ -22,4 +22,6 @@ public interface ArticleService {
 
 	Board getBoard(String boardCode);
 
+	Board getBoard(int boardId);
+
 }

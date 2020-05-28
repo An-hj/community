@@ -26,4 +26,6 @@ public interface ArticleDao {
 
 	Board getBoardByBoardCode(@Param("boardCode") String boardCode);
 
+	Board getBoard(@Param("boardId") int boardId);
+
 }
