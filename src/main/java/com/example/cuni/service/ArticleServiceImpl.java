@@ -30,10 +30,9 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Map<String, Object> write(Map<String, Object> param) {
 		articleDao.write(param);
-		
 		int id = CUtil.getAsInt(param.get("id"));
-		
 		Map<String, Object> rs = new HashMap<>();
+		
 		rs.put("resultCode", "S-1");
 		rs.put("msg", String.format("%d번 게시물이 생성되었습니다.", id));
 		

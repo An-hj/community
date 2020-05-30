@@ -67,8 +67,8 @@ public class ArticleController {
 	public String doDelete(Model model, int id) {
 		Map<String, Object> rs = articleService.delete(id);
 
-		model.addAttribute("jsLocationReplaceUrl", "/article/list");
-		model.addAttribute("jsAlert", rs.get("msg"));
+		model.addAttribute("locationReplaceUrl", "/article/list");
+		model.addAttribute("alert", rs.get("msg"));
 
 		return "redirect";
 	}
@@ -82,7 +82,7 @@ public class ArticleController {
 		return "article/write";
 	}
 	
-	@RequestMapping("/article/doWrite")
+	@RequestMapping("article/doWrite")
 	public String doWrite(Model model, @RequestParam Map<String, Object> param) {
 		Map<String, Object> rs = articleService.write(param);
 		
@@ -90,11 +90,8 @@ public class ArticleController {
 		
 		Board board = articleService.getBoard(boardId);
 		
-		String msg = (String) rs.get("msg");
-		String redirectUrl = "/article/list?boardCode=" + board.getCode();
-
-		model.addAttribute("alertMsg", msg);
-		model.addAttribute("locationReplace", redirectUrl);
+		model.addAttribute("locationReplaceUrl", "/article/list?boardCode=" + board.getCode());
+		model.addAttribute("alert", rs.get("msg"));
 
 		return "redirect";
 	}
