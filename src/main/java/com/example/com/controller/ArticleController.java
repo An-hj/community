@@ -57,7 +57,7 @@ public class ArticleController {
 		
 		sb.append("<script>");
 		sb.append("alert('" + rs.get("msg") + "');");
-		sb.append("location.replace('/article/list');");
+		sb.append("location.replace('/article/list?boardCode=' + board.getCode());");
 		sb.append("</script>");
 		
 		return sb.toString();
